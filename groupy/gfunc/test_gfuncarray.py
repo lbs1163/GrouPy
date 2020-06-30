@@ -32,6 +32,22 @@ def test_p4m_func():
     check_invertible(g, f)
     check_i2g_g2i_invertible(f)
 
+    
+def test_p8m_func():
+    from groupy.gfunc.p8mfunc_array import P8MFuncArray
+    import groupy.garray.D4_array as d4a
+
+    v = np.random.randn(2, 6, 8, 5, 5)
+    f = P8MFuncArray(v=v)
+
+    g = d4a.rand(size=(1,))
+    h = d4a.rand(size=(1,))
+
+    check_associative(g, h, f)
+    check_identity(d4a, f)
+    check_invertible(g, f)
+    check_i2g_g2i_invertible(f)
+
 
 def test_z2_func():
     from groupy.gfunc.z2func_array import Z2FuncArray
