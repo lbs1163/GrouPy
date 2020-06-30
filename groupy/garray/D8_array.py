@@ -27,6 +27,9 @@ class D8Array(MatrixGArray):
         self._reparameterizations[('float', 'mat')] = self.float2mat
         self._reparameterizations[('mat', 'float')] = self.mat2float
 
+        self._reparameterizations[('float', 'hmat')] = self.float2hmat
+        self._reparameterizations[('hmat', 'float')] = self.hmat2float
+
         super(D8Array, self).__init__(data, p)
     
     def __eq__(self, other):
@@ -62,6 +65,12 @@ class D8Array(MatrixGArray):
         out[..., 0] = m
         out[..., 1] = r
         return out
+    
+    def float2hmat(self, float_data):
+        return self.mat2hmat(self.float2mat(float_data))
+
+    def hmat2float(self, hmat_data):
+        return self.mat2float(self.hmat2mat(hmat_data))
 
 
 class D8Group(FiniteGroup, D8Array):
@@ -83,9 +92,9 @@ class D8Group(FiniteGroup, D8Array):
 D8 = D8Group()
 
 # Generators & special elements
-r = D8Array(data=np.array([0, 1]), p='float')
-m = D8Array(data=np.array([1, 0]), p='float')
-e = D8Array(data=np.array([0, 0]), p='float')
+r = D8Array(data=np.array([0., 1]), p='float')
+m = D8Array(data=np.array([1., 0]), p='float')
+e = D8Array(data=np.array([0., 0]), p='float')
 
 
 def identity(shape=(), p='float'):
