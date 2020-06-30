@@ -1,6 +1,7 @@
 
 import groupy.garray.p8m_array as p8ma
 from groupy.gfunc.gfuncarray import GFuncArray
+import numpy as np
 
 
 class P8MFuncArray(GFuncArray):
@@ -35,8 +36,8 @@ class P8MFuncArray(GFuncArray):
             v=p8ma.v_range(self.vmin, self.vmax + 1)
         )
 
-        if v.shape[-3] == 8:
-            i2g = i2g.reshape(8, i2g.shape[-2], i2g.shape[-1])
+        if v.shape[-3] == 16:
+            i2g = i2g.reshape(16, i2g.shape[-2], i2g.shape[-1])
             self.flat_stabilizer = True
         else:
             self.flat_stabilizer = False
@@ -47,7 +48,7 @@ class P8MFuncArray(GFuncArray):
         # TODO: check validity of indices and wrap / clamp if necessary
         # (or do this in a separate function, so that this function can be more easily tested?)
 
-        gint = g.reparameterize('float').data.copy()
+        gint = np.round(g.reparameterize('float').data).astype(np.int).copy()
         gint[..., 2] -= self.umin
         gint[..., 3] -= self.vmin
 

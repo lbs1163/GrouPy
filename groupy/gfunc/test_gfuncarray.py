@@ -35,16 +35,16 @@ def test_p4m_func():
     
 def test_p8m_func():
     from groupy.gfunc.p8mfunc_array import P8MFuncArray
-    import groupy.garray.D4_array as d4a
+    import groupy.garray.D8_array as d8a
 
-    v = np.random.randn(2, 6, 8, 5, 5)
+    v = np.random.randn(2, 6, 16, 5, 5)
     f = P8MFuncArray(v=v)
 
-    g = d4a.rand(size=(1,))
-    h = d4a.rand(size=(1,))
+    g = d8a.rand(size=(1,))
+    h = d8a.rand(size=(1,))
 
     check_associative(g, h, f)
-    check_identity(d4a, f)
+    check_identity(d8a, f)
     check_invertible(g, f)
     check_i2g_g2i_invertible(f)
 
@@ -77,7 +77,8 @@ def check_associative(g, h, f):
     hf = h * f
     gh_f = gh * f
     g_hf = g * hf
-    assert (gh_f.v == g_hf.v).all()
+    print(np.isclose(gh_f.v, g_hf.v))
+    assert np.isclose(gh_f.v, g_hf.v).all()
 
 
 def check_identity(garray_module, a):

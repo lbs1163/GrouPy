@@ -33,6 +33,11 @@ def test_d4_array():
     check_finite_group(D4_array, D4_array.D4Array, D4_array.D4)
 
 
+def test_d8_array():
+    from groupy.garray import D8_array
+    check_finite_group(D8_array, D8_array.D8Array, D8_array.D8)
+
+
 def check_wallpaper_group(garray_module, garray_class):
 
     a = garray_module.rand(minu=-1, maxu=2, minv=-1, maxv=2, size=(2, 3))
