@@ -13,6 +13,11 @@ def test_p4m_array():
     check_wallpaper_group(p4m_array, p4m_array.P4MArray)
 
 
+def test_p8m_array():
+    from groupy.garray import p8m_array
+    check_wallpaper_group(p8m_array, p8m_array.P8MArray)
+
+
 def test_z2_array():
     from groupy.garray import Z2_array
     check_wallpaper_group(Z2_array, Z2_array.Z2Array)
