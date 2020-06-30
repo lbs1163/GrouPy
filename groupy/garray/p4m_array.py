@@ -85,7 +85,7 @@ def identity(shape=(), p='int'):
 
 
 def rand(minu, maxu, minv, maxv, size=()):
-    data = np.zeros(size + (4,), dtype=np.int64)
+    data = np.zeros(size + (4,), dtype=np.int)
     data[..., 0] = np.random.randint(0, 2, size)
     data[..., 1] = np.random.randint(0, 4, size)
     data[..., 2] = np.random.randint(minu, maxu, size)

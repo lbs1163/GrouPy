@@ -38,7 +38,7 @@ def identity(shape=()):
 
 
 def rand(minu, maxu, minv, maxv, size=()):
-    data = np.zeros(size + (2,), dtype=np.int64)
+    data = np.zeros(size + (2,), dtype=np.int)
     data[..., 0] = np.random.randint(minu, maxu, size)
     data[..., 1] = np.random.randint(minv, maxv, size)
     return Z2Array(data=data, p='int')

@@ -76,7 +76,7 @@ def identity(shape=(), p='int'):
 
 
 def rand(size=()):
-    data = np.zeros(size + (2,), dtype=np.int64)
+    data = np.zeros(size + (2,), dtype=np.int)
     data[..., 0] = np.random.randint(0, 2, size)
     data[..., 1] = np.random.randint(0, 4, size)
     return D4Array(data=data, p='int')

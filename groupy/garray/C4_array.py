@@ -68,6 +68,6 @@ def identity(shape=(), p='int'):
 
 
 def rand(size=()):
-    data = np.zeros(size + (1,), dtype=np.int64)
+    data = np.zeros(size + (1,), dtype=np.int)
     data[..., 0] = np.random.randint(0, 4, size)
     return C4Array(data=data, p='int')

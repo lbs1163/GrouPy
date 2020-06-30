@@ -12,6 +12,7 @@
 *.o
 *.so
 *.pyc
+build
 
 # LaTeX #
 #########
