@@ -45,7 +45,22 @@ class P8MArray(MatrixGArray):
         self._left_actions[P8MArray] = self.__class__.left_action_hmat
         self._left_actions[Z2Array] = self.__class__.left_action_hvec
 
+        self._reparameterizations[('float', 'hmat')] = self.float2hmat
+        self._reparameterizations[('hmat', 'float')] = self.hmat2float
+
         super(P8MArray, self).__init__(data, p)
+    
+    def __eq__(self, other):
+        if isinstance(other, self.__class__) or isinstance(self, other.__class__):
+            return np.isclose(self.data, other.reparameterize(self.p).data).all(axis=-1)
+        else:
+            return NotImplemented
+    
+    def inv(self):
+        mat_p = 'mat' if 'mat' in self.parameterizations else 'hmat'
+        self_mat = self.reparameterize(mat_p).data
+        self_mat_inv = np.linalg.inv(self_mat)
+        return self.factory(data=self_mat_inv, p=mat_p).reparameterize(self.p)
 
     def float2hmat(self, float_data):
         m = float_data[..., 0]
@@ -76,10 +91,11 @@ class P8MArray(MatrixGArray):
         out[..., 1] = r
         out[..., 2] = u
         out[..., 3] = v
+        out[np.isclose(out, 0)] = 0
         return out
 
 
-def identity(shape=(), p='int'):
+def identity(shape=(), p='float'):
     e = P8MArray(np.zeros(shape + (4,), dtype=np.float), 'float')
     return e.reparameterize(p)
 
@@ -134,9 +150,9 @@ def m_range(start=0, stop=2):
 
 def r_range(start=0, stop=8, step=1):
     assert stop > 0
-    assert stop <= 4
+    assert stop <= 8
     assert start >= 0
-    assert start < 4
+    assert start < 8
     assert start < stop
     m = np.zeros((stop - start, 4), dtype=np.float)
     m[:, 1] = np.arange(start, stop, step)
