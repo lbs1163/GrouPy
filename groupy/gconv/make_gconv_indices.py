@@ -73,7 +73,7 @@ def make_d8_p8m_indices(ksize):
     x = np.random.randn(16, ksize, ksize)
     f = P8MFuncArray(v=x)
     li = f.left_translation_indices(D8.flatten()[:, None, None, None])
-    mruv = np.round(mruv)
+    li = np.round(li)
     return li.astype('int')
 
 
