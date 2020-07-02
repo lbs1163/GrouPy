@@ -48,12 +48,12 @@ class P8MFuncArray(GFuncArray):
         # TODO: check validity of indices and wrap / clamp if necessary
         # (or do this in a separate function, so that this function can be more easily tested?)
 
-        gint = np.round(g.reparameterize('float').data).astype(np.int).copy()
-        gint[..., 2] -= self.umin
-        gint[..., 3] -= self.vmin
+        gfloat = g.reparameterize('float').data.copy()
+        gfloat[..., 2] -= self.umin
+        gfloat[..., 3] -= self.vmin
 
         if self.flat_stabilizer:
-            gint[..., 1] += gint[..., 0] * 4
-            gint = gint[..., 1:]
+            gfloat[..., 1] += gfloat[..., 0] * 8
+            gfloat = gfloat[..., 1:]
 
-        return gint
+        return gfloat
