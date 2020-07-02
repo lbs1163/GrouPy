@@ -9,7 +9,9 @@ from groupy.gconv.make_gconv_indices import *
 make_indices_functions = {(1, 4): make_c4_z2_indices,
                           (4, 4): make_c4_p4_indices,
                           (1, 8): make_d4_z2_indices,
-                          (8, 8): make_d4_p4m_indices}
+                          (8, 8): make_d4_p4m_indices,
+                          (1, 16): make_d8_z2_indices,
+                          (16, 16): make_d8_p8m_indices}
 
 
 def trans_filter(w, inds):
@@ -122,3 +124,15 @@ class P4MConvP4M(SplitGConv2D):
 
     def __init__(self, *args, **kwargs):
         super(P4MConvP4M, self).__init__(input_stabilizer_size=8, output_stabilizer_size=8, *args, **kwargs)
+
+
+class P8MConvZ2(SplitGConv2D):
+
+    def __init__(self, *args, **kwargs):
+        super(P8MConvZ2, self).__init__(input_stabilizer_size=1, output_stabilizer_size=16, *args, **kwargs)
+
+
+class P8MConvP8M(SplitGConv2D):
+
+    def __init__(self, *args, **kwargs):
+        super(P8MConvP8M, self).__init__(input_stabilizer_size=16, output_stabilizer_size=16, *args, **kwargs)
