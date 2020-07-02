@@ -6,15 +6,15 @@ from groupy.garray.garray import GArray
 
 class Z2Array(GArray):
 
-    parameterizations = ['int']
+    parameterizations = ['int', 'float']
     _left_actions = {}
     _reparameterizations = {}
-    _g_shapes = {'int': (2,)}
+    _g_shapes = {'int': (2,), 'float': (2,)}
     _group_name = 'Z2'
 
     def __init__(self, data, p='int'):
         data = np.asarray(data)
-        assert data.dtype == np.int
+        assert data.dtype == np.int or data.dtype == np.float
         self._left_actions[Z2Array] = self.__class__.z2_composition
         super(Z2Array, self).__init__(data, p)
 
@@ -28,7 +28,7 @@ class Z2Array(GArray):
         return 'Z2\n' + self.data.__repr__()
 
     def reparameterize(self, p):
-        assert p == 'int'
+        assert p == 'int' or p == 'float'
         return self
 
 
