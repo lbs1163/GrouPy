@@ -64,15 +64,17 @@ def make_d8_z2_indices(ksize):
     uv = f.left_translation_indices(D8.flatten()[:, None, None, None])
     mr = np.zeros(uv.shape[:-1] + (1,))
     mruv = np.c_[mr, uv]
-    return mruv.astype('int32')
+    mruv = np.round(mruv)
+    return mruv.astype('int')
 
 
 def make_d8_p8m_indices(ksize):
     assert ksize % 2 == 1  # TODO
-    x = np.random.randn(8, ksize, ksize)
+    x = np.random.randn(16, ksize, ksize)
     f = P8MFuncArray(v=x)
     li = f.left_translation_indices(D8.flatten()[:, None, None, None])
-    return li.astype('int32')
+    mruv = np.round(mruv)
+    return li.astype('int')
 
 
 def flatten_indices(inds):
